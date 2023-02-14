@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Container, Row } from 'react-bootstrap';
 import Product from './Product';
 
 export default class Products extends Component {
@@ -9,12 +10,12 @@ console.log(this.prod)
 }
   render() {
     
-    return (
-        <div >
+    return (<Container>
+        <Row >
             {
                this.prod.map(product => <Product product={product} key={product.id} />)
             }
-        </div>
+        </Row></Container>
     )
   }
 }
