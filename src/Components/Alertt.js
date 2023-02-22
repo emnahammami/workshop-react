@@ -1,30 +1,21 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Alert from 'react-bootstrap/Alert';
-export default class Alertt extends Component {
-    componentDidMount() {
-        setTimeout(() => {
-          this.setState({ showComponent: false });
-        }, 2000);
-      }
-    
-      state = {
-        showComponent: true,
-      };
-    
-    
-    
-  render() {
-    if (!this.state.showComponent) return null;
-    return (
+import { useState ,useEffect} from "react";
+export default function Alertt() {
+  const [show, setShow] = useState(true);
+  useEffect(() => {
+    setTimeout(() => {
+      setShow(false);
+    }, 2000);
+  }, []);
+  return (
+    <div>{show&&<Alert variant="success">
 
-        <Alert variant="success">
-
-        <p>
-         you bought a product
-        </p>
-        <hr />
-       
-      </Alert>
-    )
-  }
+    <p>
+     you bought a product
+    </p>
+    <hr />
+   
+  </Alert>}</div>
+  )
 }

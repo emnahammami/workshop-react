@@ -1,4 +1,4 @@
-[
+export const data=[
     {
       "name": "PC Lenovo",
       "price": "1400",

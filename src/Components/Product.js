@@ -2,57 +2,80 @@ import React,{ Component } from 'react'
 
 import { Button,Card, Col } from "react-bootstrap";
 
+import { useState,useEffect } from "react";
+import Alert from 'react-bootstrap/Alert';
 
-import Alertt from './Alertt';
 
 
 
-export default class Product extends Component {
-   nblike; 
- prod;
-ok=false
-    constructor(props){super(props);
-    this.prod=props.product
-console.log(this.prod)
-this.state = {mriguel: false};
-    }
-    handleClick2 = () => {
-      this.setState({like:this.prod.like++})
-      
-    };
-    handleClick = () => {
-        console.log("you bought a product");
-this.setState({mriguel:true})
-        console.log(this.ok)
-        this.prod.quantity--
-      };
-     
-  render() {
-    return (<Col md={4}>
-        <Card style={{ width: '10rem' }}>
-        <Card.Img variant="top" 
-     
-        />
-      
-        <Card.Img variant="top" style={{ height: '17rem' }}
 
-          src={require("../assets/images/"+this.prod.img)}
-        />
-        <Card.Body>
-        <Card.Title>name{this.prod.name}</Card.Title>
-          <Card.Title>quantity{this.prod.quantity}</Card.Title>
-          <Card.Title>nbr like{this.prod.like}</Card.Title>
-          <Card.Text>
-              
-         
-          </Card.Text>
-          <Button variant="danger" onClick={this.handleClick} disabled={this.prod.quantity===0}>buy</Button>
-          <Button variant="primary" onClick={this.handleClick2}>Like</Button>
+export default function Product({product}) {
+  const [alert, setAlert] = useState(false);
+  const [name, setName] = useState(product.name);
+  const [quantity, setQuantity] = useState(product.quantity);
+  const [like, setLike] = useState(product.like);
+  const [img, setImg] = useState(product.img);
+  const [clas, setClas] = useState("");
 
-        </Card.Body>
-        {this.state.mriguel===true?  <Alertt/>:<div></div>}
-      </Card></Col>
-    )
-  }
+  const handleClick = (e) => {
+    e.preventDefault();
+    setAlert(true)
+    setTimeout(() => {
+      setAlert(false);
+    }, 2000);
+  setQuantity(product.quantity--)
+
+  };
+  const handleClick2 = (e) => {
+    e.preventDefault();
+   setLike(product.like++)
+  };
+  useEffect(() => {
+    // Update the document title using the browser API
+if(like>5){setClas("bestProduct")}
+});
+const handleClose = () => {
+  setAlert(false);
+};
+console.log(alert)
+const handleAlert=()=>{
+  setTimeout(() => {
+    setAlert(false);
+  }, 2000);
 }
+  return (
+    <Col md={4}>
+    {<Card style={{ width: '10rem' }} className={clas}>
+    <Card.Img variant="top" 
+ 
+    />
+  
+    <Card.Img variant="top" style={{ height: '17rem' }}
+
+      src={require("../assets/images/"+img)}
+    />
+    <Card.Body>
+    <Card.Title>name{name}</Card.Title>
+      <Card.Title>quantity{quantity}</Card.Title>
+      <Card.Title>nbr like{like}</Card.Title>
+      <Card.Text>
+          
+     
+      </Card.Text>
+      <Button variant="danger" onClick={handleClick} disabled={quantity===0}>buy</Button>
+      <Button variant="primary" onClick={handleClick2}>Like</Button>
+
+    </Card.Body>
+<div><Alert variant="success" show={alert} onClose={handleClose} dismissible>
+
+<p>
+ you bought a product
+</p>
+<hr />
+
+</Alert></div>:<div></div>
+  </Card>}</Col>
+  )
+}
+
 
