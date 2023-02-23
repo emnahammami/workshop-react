@@ -1,6 +1,8 @@
 import React from 'react'
 import { useParams,Link } from 'react-router-dom';
-import { Card,ListGroup,ListGroupItem } from 'react-bootstrap';
+import {Col,Row, Card,ListGroup,ListGroupItem } from 'react-bootstrap';
+import NotFound from './NotFound';
+
 export default function ProductDetails({product}) {
     const params = useParams();
     console.log(product[1])
@@ -8,47 +10,48 @@ let identifiant=Number(params.id)
 console.log(identifiant)
 const prod = product.find((el)=>el.id ==identifiant)
 console.log(prod)
-  
-    return (
-        <Card style={{ width: '18rem' }}>
+  if(prod==null){return (<><NotFound/></>)}
+   else{return (
+    <Card style={{ width: '18rem' }}>
+  <Row>
+    <Card.Body>
       
-        <Card.Body>
-          <Card.Title>{prod.name}</Card.Title>
-          <Card.Img variant="top" style={{ height: '17rem' }}
+     <Col md={4}><Card.Img variant="top" style={{ height: '17rem' }}
 
 src={require("../assets/images/"+prod.img)}
-/>
-          <Card.Text>
-          {prod.description}
-          </Card.Text>
-        </Card.Body>
-        <ListGroup className="list-group-flush">
-          <ListGroupItem><div width='50%'>
-    
-     
+/></Col><Col md={4}>
+ <Card.Title>{prod.name}</Card.Title>   </Col >
+      <Card.Text>
+      {prod.description}
+      </Card.Text>
+    </Card.Body>
+    <ListGroup className="list-group-flush">
+      <ListGroupItem><div width='50%'>
+
+ 
 </div></ListGroupItem>
-         
-        </ListGroup>
-        <Card.Body>
-         
-        <Link to="/">Home</Link> 
-        </Card.Body>
-
-
-
-
-
      
+    </ListGroup>
+    <Card.Body>
+     
+    <Link to="/">Home</Link> 
+    </Card.Body>
+
+
+
+
+
+ 
 
 
 
 
 
 
+ 
+    </Row>
 
-
-
-      </Card>
-      
-    );
+  </Card>
+  
+);} 
 }

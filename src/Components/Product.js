@@ -56,7 +56,7 @@ const handleAlert=()=>{
       src={require("../assets/images/"+img)}
     />
     <Card.Body>
-    <Link to={`/ProductDetails/${id}`}>name{name}</Link>
+    <Link to={`/products/${id}`}>name{name}</Link>
       <Card.Title>quantity{quantity}</Card.Title>
       <Card.Title>nbr like{like}</Card.Title>
       <Card.Text>
