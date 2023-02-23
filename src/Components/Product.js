@@ -4,6 +4,7 @@ import { Button,Card, Col } from "react-bootstrap";
 
 import { useState,useEffect } from "react";
 import Alert from 'react-bootstrap/Alert';
+import { Link } from 'react-router-dom';
 
 
 
@@ -16,7 +17,7 @@ export default function Product({product}) {
   const [like, setLike] = useState(product.like);
   const [img, setImg] = useState(product.img);
   const [clas, setClas] = useState("");
-
+  const [id, setId] = useState(product.id);
   const handleClick = (e) => {
     e.preventDefault();
     setAlert(true)
@@ -33,7 +34,7 @@ export default function Product({product}) {
   useEffect(() => {
     // Update the document title using the browser API
 if(like>5){setClas("bestProduct")}
-});
+},[like]);
 const handleClose = () => {
   setAlert(false);
 };
@@ -55,7 +56,7 @@ const handleAlert=()=>{
       src={require("../assets/images/"+img)}
     />
     <Card.Body>
-    <Card.Title>name{name}</Card.Title>
+    <Link to={`/ProductDetails/${id}`}>name{name}</Link>
       <Card.Title>quantity{quantity}</Card.Title>
       <Card.Title>nbr like{like}</Card.Title>
       <Card.Text>

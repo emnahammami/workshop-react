@@ -4,34 +4,31 @@ import Products from './Components/Products';
 import Alert from 'react-bootstrap/Alert';
 import {data }from "./products"
 import { useState } from "react";
+import { Router ,Route, Routes} from "react-router-dom";
+import ProductDetails from "./Components/ProductDetails"
+import NavBar from './Components/NavBar';
 function App() {
   const [product, setProduct] = useState(data);
   return (
 <>
 
+<NavBar/>
+<Routes>
+ 
+    
+    
+    
+    <Route
+    path='/'
+    element={<div>
+   
 
-    <Alert variant="success">
-    <Alert.Heading>Hey, nice to see you</Alert.Heading>
-    <p>
-      Aww yeah, you successfully read this important alert message. This
-      example text is going to run a bit longer so that you can see how
-      spacing within an alert works with this kind of content.
-    </p>
-    <hr />
-    <p className="mb-0">
-      Whenever you need to, be sure to use margin utilities to keep things
-      nice and tidy.
-    </p>
-  </Alert>
-    <div >
-    
-    
-      <Products product={product}
-        
-        
-        />
-         
-      </div></>
+      <Products
+        product={product}
+      />
+    </div>} />
+      <Route path='/ProductDetails/:id' element={<ProductDetails product={product}      />} />
+    </Routes></>
   );
 }
 
