@@ -1,24 +1,51 @@
-import logo from './logo.svg';
+import { lazy, Suspense } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import {Cart} from './Components/Cart';
+import CustomNavbar from './Components/CustomNavbar';
+import ReduxComponent from './Redux/ReduxComponent';
+import ReduxToolkitComponent from './ReduxToolkit/ReduxComponent';
+
+
+const Home = lazy(()=>import('./Components/Home'));
+const UpdateProduct = lazy(()=>import('./Components/UpdateProduct'));
+
+const ProductDetails = lazy(()=>import('./Components/ProductDetails'));
+const AddProduct = lazy(()=>import('./Components/addProduct'));
+const Products = lazy(()=>import('./Components/Products'));
+const ProductLayout = lazy(()=>import('./Components/ProductLayout'));
+const NotFound = lazy(()=>import('./Components/NotFound'));
+
 
 function App() {
+ 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    // <Fragement>
+    <>
+  
+    {/* <Products/> */}
+    <Suspense fallback={<h1>Loaading ....</h1>}>
+    <CustomNavbar/>
+    <Routes>
+      <Route path="*" element={<NotFound/>}/>
+      <Route path="/" element={<h1>Home</h1>}/>
+      <Route path="/redux" element={<ReduxComponent/>}/>
+      <Route path="/reduxtoolkit" element={<ReduxToolkitComponent/>}/> 
+
+
+      <Route path="/home/:username" element={<Home/>}/> 
+      <Route path="/products" element={<ProductLayout />}>
+          <Route path="list" element={<Products />}/>
+          <Route path="add" element={<AddProduct/>}/>
+      <Route path='update/:id' element={<UpdateProduct />}/>
+
+          <Route path=":id" element={<ProductDetails/>}/>
+      </Route>
+      <Route path="/cart" element={<Cart/>}></Route>
+    </Routes>
+    </Suspense>
+    </>
+    // </Fragement>
   );
 }
 
